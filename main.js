@@ -12,7 +12,7 @@ const createWindow = () => {
         }
     });
 
-    appWindow.loadFile('./app/admin.html');
+    appWindow.loadFile('./app/index.html');
 };
 
 // ipcMain.on('data.send', (event, arg) => {
