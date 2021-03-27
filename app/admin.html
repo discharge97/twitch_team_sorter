@@ -11,5 +11,30 @@
     <title>Admin panel</title>
 </head>
 <body>
+<div>
+    <div id="toolbar">
+        <button onclick="startGame()"><span class="material-icons">done_all</span><span class="tool-text"> Start Game</span></button>
+        <button onclick="forceStop()"><span class="material-icons">close</span><span class="tool-text"> Force stop</span></button>
+        <button onclick="shuffleTeams()"><span class="material-icons">group</span><span class="tool-text"> Shuffle Teams</span></button>
+        <button onclick="shufflePlayers()"><span class="material-icons">person</span><span class="tool-text"> Shuffle Players</span></button>
+        <button onclick="test()"><span class="material-icons">person</span><span class="tool-text"> TEST</span></button>
+    </div>
+    <div id="toolbox">
+        <label for="teams-count">Number of teams: </label>
+        <select id="teams-count" onchange="teamNumberChange()">
+            <option value="2">2</option> 
+            <option value="3">3</option>     
+            <option value="4">4</option>      
+        </select>
+    </div>
+    <div id="teams">
+        <!-- <ul id="team1"><li>Team1</li>    </ul>
+        <ul id="team2"><li>Team2</li>   </ul>
+        <ul id="team3"><li>Team3</li>    </ul>
+        <ul id="team4"><li>Team4</li>    </ul> -->
+    </div>
+    
+</div>
+
 </body>
 </html>

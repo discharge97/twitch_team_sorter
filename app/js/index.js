@@ -17,10 +17,10 @@ const teams = [
         team_name: "Team3",
         players: ['aaaa','bbbb','ccccc','ggggg']
     },
-    {
-        team_name: "Team4",
-        players: ['aaaa','bbbb','ccccc','ggggg']
-    },
+    // {
+    //     team_name: "Team4",
+    //     players: ['aaaa','bbbb','ccccc','ggggg']
+    // },
 ];
 
 // ipcRenderer.on("data.render", (event, data) => {
@@ -32,7 +32,7 @@ const teams = [
 //     shufflePlayersAnimation();
 // });
 
-//showTeamData();
+showTeamData();
 
 shufflePlayersAnimation();
 
@@ -43,18 +43,22 @@ function showTeamData() {
         switch (i) {
             case 0:
                 team1.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team1.classList.add("show-me");
                 break;
 
             case 1:
                 team2.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team2.classList.add("show-me");
                 break;
 
             case 2:
                 team3.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team3.classList.add("show-me");
                 break;
 
             case 3:
                 team4.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team4.classList.add("show-me");
                 break;
         }
     }

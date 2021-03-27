@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs');
 const io = require('socket.io')();
 // io.on('connection', client => { ... });
@@ -6,8 +6,8 @@ const io = require('socket.io')();
 let appWindow = undefined;
 const createWindow = () => {
     appWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
         webPreferences: {
             nodeIntegration: true
         }
@@ -21,7 +21,8 @@ const createWindow = () => {
 //     appWindow.webContents.send('data.player', {username: "test_username"});
 // });
 ipcMain.on('data.render', (event, arg) => {
-    appWindow.webContents.send('data.player', {username: "test_username"});
+    // appWindow.webContents.send('data.player', {username: "test_username"});
+    console.log(arg);
 });
 
 app.whenReady().then(() => {
