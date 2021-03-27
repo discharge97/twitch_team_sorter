@@ -1,5 +1,4 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
-const shell = require('shelljs');
 const fs = require('fs')
 
 let appWindow = undefined;
@@ -12,14 +11,13 @@ const createWindow = () => {
         }
     });
 
-    appWindow.loadFile('./app/index.html');
+    appWindow.loadFile('./app/admin.html');
 };
 
 ipcMain.on('data.send', (event, arg) => {
     console.log(arg);
 
-	appWindow.webContents.send('data.get', {test: "hi"});
-    })
+    appWindow.webContents.send('data.get', {test: "hi"});
 });
 
 app.whenReady().then(() => {
