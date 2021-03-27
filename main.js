@@ -1,4 +1,5 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
+const server = require('http-server');
 const fs = require('fs')
 
 let appWindow = undefined;
@@ -14,11 +15,9 @@ const createWindow = () => {
     appWindow.loadFile('./app/admin.html');
 };
 
-ipcMain.on('data.send', (event, arg) => {
-    console.log(arg);
-
-    appWindow.webContents.send('data.get', {test: "hi"});
-});
+// ipcMain.on('data.send', (event, arg) => {
+//     appWindow.webContents.send('data.player', {username: "test_username"});
+// });
 
 app.whenReady().then(() => {
     createWindow();
