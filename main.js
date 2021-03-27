@@ -1,6 +1,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
-const server = require('http-server');
-const fs = require('fs')
+const fs = require('fs');
+const io = require('socket.io')();
+// io.on('connection', client => { ... });
 
 let appWindow = undefined;
 const createWindow = () => {
@@ -12,15 +13,20 @@ const createWindow = () => {
         }
     });
 
-    appWindow.loadFile('./app/index.html');
+    appWindow.loadFile('./app/admin.html').then(() => {
+    });
 };
 
 // ipcMain.on('data.send', (event, arg) => {
 //     appWindow.webContents.send('data.player', {username: "test_username"});
 // });
+ipcMain.on('data.render', (event, arg) => {
+    appWindow.webContents.send('data.player', {username: "test_username"});
+});
 
 app.whenReady().then(() => {
     createWindow();
+    io.listen(3333, () => console.log("Socket.io started on port 3333"));
 });
 
 app.on('window-all-closed', () => {
