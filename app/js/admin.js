@@ -4,6 +4,11 @@ const STOPPED = 0;
 let gameState = STOPPED;
 let max_teams = 2;
 var teamsNumber = document.getElementById("teams-count");
+var startButton = document.getElementById("start-button");
+var stopButton = document.getElementById("stop-button");
+var shufflePlayersButton = document.getElementById("shuffle-players-button");
+var shuffleTeamsButton = document.getElementById("shuffle-teams-button");
+var randomWinnerButton = document.getElementById("random-winner-button");
 const teams = [
     // {
     //     team_name: "Team1",
@@ -41,16 +46,15 @@ function teamNumberChange() {
 }
 function startGame() {
     if (isRunning()) return;
-    gameState = RUNNING;
-    teamsNumber.disabled = true;
+    setGameState(RUNNING);
+
     for (let i = 1; i <= max_teams; i++) {
         teams.push({ team_name: `Team ${i}`, players: [] });
     }
     renderTeams();
 }
 function forceStop() {
-    gameState = STOPPED;
-    teamsNumber.disabled = false;
+    setGameState(STOPPED);
     max_teams = 2;
     teamsNumber.value = max_teams;
     document.getElementById('teams').innerHTML = "";
@@ -82,16 +86,16 @@ function renderTeams() {
 
     for (let i = 0; i < max_teams; i++) {
 
-        tmp += `<ul id="team${i + 1}">
-        <li class="header">
+        tmp += `<ul id="team${i + 1}"><li class="header">
         <input id="txt-team-${i + 1}" type="text" value="${teams[i].team_name || "Team " + (i + 1)}">
         <button onclick="saveTeamName(${i}, 'txt-team-${i + 1}')"><span class="material-icons">save</span> </button>
-        </li>`
+        </li><li>Move to <select id="move-all-${i}" onchange="moveAllPlayers('${teams[i].players}', ${i}, 'move-all-${i}')">${options}</select>
+        <button onClick="setWinnerTeam(${i})"><span class="material-icons">emoji_events</span></button> </li>`;
 
         for (let j = 0; j < teams[i].players.length; j++) {
             tmp += `<li><select id="move-${i}-${j}" onchange="movePlayer('${teams[i].players[j]}',${i},'move-${i}-${j}')">${options}</select> ${teams[i].players[j]}</li>`;
         }
-        tmp += `<li>Move to <select id="move-all-${i}" onchange="moveAllPlayers('${teams[i].players}', ${i}, 'move-all-${i}')">${options}</select> </li>`;
+
         tmp += `</ul>`;
     }
 
@@ -125,6 +129,7 @@ function moveAllPlayers(playersToMove, currentTeamIndex, selectDestinationID) {
     if (destTeamIndex < 0 || +destTeamIndex === currentTeamIndex) return;
 
     playersToMove.split(',').forEach(player => teams[destTeamIndex].players.push(player));
+
     teams[currentTeamIndex].players.length = 0;
     renderTeams();
 }
@@ -160,10 +165,6 @@ function shuffleTeams() {
     teams.forEach(team => {
         team.team_name = team_names.splice(getRandomNumber(0, team_names.length), 1)[0];
     });
-    // let i = 0;
-    // while (team_names.length > 0) {
-    //     teams[i++ % max_teams].team_name = team_names.splice(0, getRandomNumber(0, team_names.length));
-    // }
     renderTeams();
 }
 
@@ -180,9 +181,42 @@ function isStopped() {
     return gameState === STOPPED;
 }
 
+function setGameState(state) {
+    switch (state) {
+        case RUNNING:
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            shufflePlayersButton.disabled = false;
+            shuffleTeamsButton.disabled = false;
+            teamsNumber.disabled = true;
+            randomWinnerButton.disabled = false;
+            document.getElementById("winner-box").className = "hide-me";
+            gameState = RUNNING;
+            break;
+        case STOPPED:
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            shufflePlayersButton.disabled = true;
+            shuffleTeamsButton.disabled = true;
+            teamsNumber.disabled = false;
+            randomWinnerButton.disabled = true;
+            gameState = STOPPED;
+            break;
+    }
+}
 
+function setWinnerTeam(index) {
+    const winner = teams[index];
+    forceStop();
+    renderWinnerTeam(winner);
+}
 
+function setRandomWinner() {
+    setWinnerTeam(getRandomNumber(0, teams.length));
+}
 
-
-
-
+function renderWinnerTeam(team) {
+    const txtWinningTeam = document.getElementById("winning-team");
+    document.getElementById("winner-box").className = "";
+    txtWinningTeam.value = `Winning team: ${team.team_name}\n\n${team.players.join("\n")}`;
+}

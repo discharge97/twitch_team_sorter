@@ -7,20 +7,20 @@ let team4;
 const teams = [
     {
         team_name: "Team1",
-        players: ['aaaa','bbbb','ccccc','ggggg']
+        players: ['aaaa', 'bbbb', 'ccccc', 'ggggg', 'aaaa', 'bbbb', 'ccccc', 'ggggg', 'aaaa', 'bbbb', 'ccccc', 'ggggg', 'aaaa', 'bbbb', 'ccccc', 'ggggg', 'aaaa', 'bbbb', 'ccccc', 'ggggg']
     },
     {
         team_name: "Team2",
-        players: ['ccccc','ggggg','aaaa','bbbb']
+        players: ['ccccc', 'ggggg', 'aaaa', 'bbbb', 'aaaa', 'bbbb', 'ccccc', 'ggggg']
     },
     {
         team_name: "Team3",
-        players: ['aaaa','bbbb','ccccc','ggggg']
+        players: ['aaaa', 'bbbb', 'ccccc', 'ggggg']
     },
-    // {
-    //     team_name: "Team4",
-    //     players: ['aaaa','bbbb','ccccc','ggggg']
-    // },
+    {
+        team_name: "Team4",
+        players: ['aaaa', 'bbbb', 'ccccc', 'ggggg']
+    },
 ];
 
 // ipcRenderer.on("data.render", (event, data) => {
@@ -34,7 +34,7 @@ const teams = [
 
 showTeamData();
 
-shufflePlayersAnimation();
+
 
 function showTeamData() {
     updateTargetTeams();
@@ -73,7 +73,7 @@ function getTeamPlayersHTML(players) {
 }
 
 function updateTargetTeams() {
-    if (!team1 || !team2 || !team3 || !team4){
+    if (!team1 || !team2 || !team3 || !team4) {
         team1 = document.getElementById('team1');
         team2 = document.getElementById('team2');
         team3 = document.getElementById('team3');
@@ -85,17 +85,17 @@ function shufflePlayersAnimation() {
     updateTargetTeams();
     const intervalID = setInterval(() => {
         setRandomPlayerNames();
-    
+
     }, 100);
 
     setTimeout(() => {
         clearInterval(intervalID);
         showTeamData();
     }, 2000);
-    
+
 }
 
-function setRandomPlayerNames(){
+function setRandomPlayerNames() {
     for (let i = 0; i < teams.length; i++) {
         switch (i) {
             case 0:
@@ -118,23 +118,23 @@ function setRandomPlayerNames(){
 
 }
 
-function getRandomList(num){
+function getRandomList(num) {
     let tmp = "";
-   for(let i = 0;i < num; i++) {
-    tmp += `<li>${randomString()}</li>`;
+    for (let i = 0; i < num; i++) {
+        tmp += `<li>${randomString()}</li>`;
     }
     return tmp;
 
 }
 
-function randomString(){
-    let string = ""; 
-    for(i = 0; i < getRandomNumber(9,15); i++){
-        string += String.fromCharCode(getRandomNumber(35,125));
+function randomString() {
+    let string = "";
+    for (i = 0; i < getRandomNumber(9, 15); i++) {
+        string += String.fromCharCode(getRandomNumber(35, 125));
     }
     return string;
 }
 
-function getRandomNumber(min, max){
-    return Math.floor(Math.random() * (max - min) ) + min;
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 }

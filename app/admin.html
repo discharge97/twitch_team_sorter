@@ -1,40 +1,53 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/admin.js" defer></script>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Admin panel</title>
 </head>
+
 <body>
-<div>
-    <div id="toolbar">
-        <button onclick="startGame()"><span class="material-icons">done_all</span><span class="tool-text"> Start Game</span></button>
-        <button onclick="forceStop()"><span class="material-icons">close</span><span class="tool-text"> Force stop</span></button>
-        <button onclick="shuffleTeams()"><span class="material-icons">group</span><span class="tool-text"> Shuffle Teams</span></button>
-        <button onclick="shufflePlayers()"><span class="material-icons">person</span><span class="tool-text"> Shuffle Players</span></button>
-        <button onclick="test()"><span class="material-icons">person</span><span class="tool-text"> TEST</span></button>
-    </div>
-    <div id="toolbox">
-        <label for="teams-count">Number of teams: </label>
-        <select id="teams-count" onchange="teamNumberChange()">
-            <option value="2">2</option> 
-            <option value="3">3</option>     
-            <option value="4">4</option>      
-        </select>
-    </div>
-    <div id="teams">
-        <!-- <ul id="team1"><li>Team1</li>    </ul>
+    <div>
+        <div id="toolbar">
+            <button id="start-button" onclick="startGame()"><span class="material-icons">done_all</span><span
+                    class="tool-text"> Start Game</span></button>
+            <button id="stop-button" onclick="forceStop()" disabled="true"><span
+                    class="material-icons">close</span><span class="tool-text"> Force stop</span></button>
+            <button id="shuffle-teams-button" onclick="shuffleTeams()" disabled="true"><span
+                    class="material-icons">group</span><span class="tool-text"> Shuffle Teams</span></button>
+            <button id="shuffle-players-button" onclick="shufflePlayers()" disabled="true"><span
+                    class="material-icons">person</span><span class="tool-text"> Shuffle Players</span></button>
+            <button id="random-winner-button" onclick="setRandomWinner()" disabled="true"><span
+                    class="material-icons">emoji_events</span><span class="tool-text"> Random Winner</span></button>
+            <button id="" onclick="test()"><span class="material-icons">person</span><span class="tool-text">
+                    TEST</span></button>
+        </div>
+        <div id="toolbox">
+            <label for="teams-count">Number of teams: </label>
+            <select id="teams-count" onchange="teamNumberChange()">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+        <div id="teams">
+            <!-- <ul id="team1"><li>Team1</li>    </ul>
         <ul id="team2"><li>Team2</li>   </ul>
         <ul id="team3"><li>Team3</li>    </ul>
         <ul id="team4"><li>Team4</li>    </ul> -->
+        </div>
+        <div id="winner-box" class="hide-me">
+            <textarea id="winning-team" readonly cols="20" rows="30"></textarea>
+        </div>
+
     </div>
-    
-</div>
 
 </body>
+
 </html>

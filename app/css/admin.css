@@ -66,6 +66,20 @@ li.header input {
 li.header button {
   vertical-align: bottom;
 }
+
 li.header .material-icons {
   font-size: 18px;
+}
+
+.hide-me{
+  display: none;
+}
+
+#winner-box{
+  text-align: center;
+}
+
+#winning-team{
+  width: 250px;
+  height: 400px;
 }

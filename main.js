@@ -13,7 +13,7 @@ const createWindow = () => {
         }
     });
 
-    appWindow.loadFile('./app/admin.html').then(() => {
+    appWindow.loadFile('./app/index.html').then(() => {
         io.listen(3333, () => console.log("Socket.io started on port 3333"));
     });
 };
