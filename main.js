@@ -14,6 +14,7 @@ const createWindow = () => {
     });
 
     appWindow.loadFile('./app/admin.html').then(() => {
+        io.listen(3333, () => console.log("Socket.io started on port 3333"));
     });
 };
 
@@ -27,7 +28,7 @@ ipcMain.on('data.render', (event, arg) => {
 
 app.whenReady().then(() => {
     createWindow();
-    io.listen(3333, () => console.log("Socket.io started on port 3333"));
+
 });
 
 app.on('window-all-closed', () => {

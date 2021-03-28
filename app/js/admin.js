@@ -91,6 +91,7 @@ function renderTeams() {
         for (let j = 0; j < teams[i].players.length; j++) {
             tmp += `<li><select id="move-${i}-${j}" onchange="movePlayer('${teams[i].players[j]}',${i},'move-${i}-${j}')">${options}</select> ${teams[i].players[j]}</li>`;
         }
+        tmp += `<li>Move to <select id="move-all-${i}" onchange="moveAllPlayers('${teams[i].players}', ${i}, 'move-all-${i}')">${options}</select> </li>`;
         tmp += `</ul>`;
     }
 
@@ -113,6 +114,18 @@ function movePlayer(playerName, currentTeamIndex, selectDestinationID) {
 
     teams[currentTeamIndex].players.splice(teams[currentTeamIndex].players.indexOf(playerName), 1);
     teams[destTeamIndex].players.push(playerName);
+    renderTeams();
+}
+
+function moveAllPlayers(playersToMove, currentTeamIndex, selectDestinationID) {
+    if (!isRunning()) return;
+
+    const destTeamIndex = document.getElementById(selectDestinationID).value;
+
+    if (destTeamIndex < 0 || +destTeamIndex === currentTeamIndex) return;
+
+    playersToMove.split(',').forEach(player => teams[destTeamIndex].players.push(player));
+    teams[currentTeamIndex].players.length = 0;
     renderTeams();
 }
 
