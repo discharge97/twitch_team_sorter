@@ -7,7 +7,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const path = require('path');
 let http = require("http");
-
+let gameState = 1;
 const config = JSON.parse(fs.readFileSync('config.json'));
 
 const options = {
@@ -25,7 +25,7 @@ const options = {
     channels: [config.twitch.channel]
 };
 io.set('origins', '*:*');
-const client = new tmi.client(options);
+const TW_client = new tmi.client(options);
 
 app.use(cors());
 app.use('/', express.static(path.join(process.cwd(), "public")));
@@ -51,6 +51,18 @@ io.on('connection', client => {
     client.on('data.shuffle', data => {
         io.emit("data.shuffle", data);
     });
+    client.on('force.stop', data => {
+        gameState = 0;
+        io.emit("data.render", []);
+        TW_client.action(config.twitch.channel, config.game.stoppedMsg);
+    });
+    client.on('play.game', data => {
+        gameState = 1;
+        TW_client.action(config.twitch.channel, `${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
+    });
+    client.on('winner', data => {
+        io.emit("data.render", data);
+    });
 });
 
 function handleCommand(channel, username, message) {
@@ -58,7 +70,12 @@ function handleCommand(channel, username, message) {
 
     switch (cmdParts[0].toLowerCase()) {
         case "play":
+            if (gameState === 0){
+                TW_client.action(config.twitch.channel, `${config.game.notStartedMsg}`);
+                return;
+            }
             io.emit("data.player", username);
+            TW_client.action(config.twitch.channel, `${username} ${config.game.joinMsg}`);
             break;
 
         default:
@@ -67,9 +84,9 @@ function handleCommand(channel, username, message) {
     }
 }
 
-client.on('connected', (adress, port) => {
+TW_client.on('connected', (adress, port) => {
     if (config.twitch.ShowJoinMessage) {
-        client.action(config.twitch.Channel, config.twitch.JoinMessage);
+        TW_client.action(config.twitch.channel, config.twitch.joinMessage);
     }
 }).on('message', (channel, tags, message, self) => {
     try {

@@ -1,9 +1,17 @@
 {
-    "twitch": {
-        "oAuth": "oauth:xxxxxxxxxxxxx",
-        "channel": "xxxxxxxxxxx",
-        "joinMessage": "Hi! How is it going? VoHiYo",
-        "showJoinMessage": true,
-        "commandPrefix": "!"
-    }
+  "twitch": {
+    "oAuth": "oauth:xxxxxxxxxxxxx",
+    "channel": "xxxxxxxxxxx",
+    "joinMessage": "Hi! How is it going? VoHiYo",
+    "showJoinMessage": true,
+    "commandPrefix": "!"
+  },
+  "game": {
+    "command": "play",
+    "winnerMsg": "Winning team:",
+    "joinMsg": "joined the game!",
+    "notStartedMsg": "game isn't started yet!",
+    "stoppedMsg": "Game has stopped!",
+    "startedMsg": "Game has started! To join Type:"
+  }
 }

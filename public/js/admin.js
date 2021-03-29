@@ -28,12 +28,7 @@ var teams = [
     // },
 ];
 
-function sendPlayerData() {
-    io.emit('data.render', teams);
-}
-
 io.on("data.player", data => {
-    console.log(data);
     if (!isRunning()) return;
 
     teams[emptiestTeam()].players.push(data);
@@ -193,6 +188,7 @@ function setGameState(state) {
             randomWinnerButton.disabled = false;
             document.getElementById("winner-box").className = "hide-me";
             gameState = RUNNING;
+            io.emit('play.game', true);
             break;
         case STOPPED:
             startButton.disabled = false;
@@ -202,6 +198,7 @@ function setGameState(state) {
             teamsNumber.disabled = false;
             randomWinnerButton.disabled = true;
             gameState = STOPPED;
+            io.emit('force.stop', true);
             break;
     }
 }
