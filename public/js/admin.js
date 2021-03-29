@@ -87,7 +87,7 @@ function renderTeams() {
         tmp += `<ul id="team${i + 1}"><li class="header">
         <input id="txt-team-${i + 1}" type="text" value="${teams[i].team_name || "Team " + (i + 1)}">
         <button onclick="saveTeamName(${i}, 'txt-team-${i + 1}')"><span class="material-icons">save</span> </button>
-        </li><li>Move to <select id="move-all-${i}" onchange="moveAllPlayers(${teams[i].players}, ${i}, 'move-all-${i}')">${options}</select>
+        </li><li>Move to <select id="move-all-${i}" onchange="moveAllPlayers(${i}, 'move-all-${i}')">${options}</select>
         <button onClick="setWinnerTeam(${i})"><span class="material-icons">emoji_events</span></button> </li>`;
 
         for (let j = 0; j < teams[i].players.length; j++) {
@@ -120,15 +120,14 @@ function movePlayer(playerName, currentTeamIndex, selectDestinationID) {
     renderTeams();
 }
 
-function moveAllPlayers(playersToMove, currentTeamIndex, selectDestinationID) {
+function moveAllPlayers(currentTeamIndex, selectDestinationID) {
     if (!isRunning()) return;
 
     const destTeamIndex = document.getElementById(selectDestinationID).value;
 
     if (destTeamIndex < 0 || +destTeamIndex === currentTeamIndex) return;
 
-    // playersToMove.split(',').forEach(player => teams[destTeamIndex].players.push(player));
-    teams[destTeamIndex].players.push(...playersToMove);
+    teams[destTeamIndex].players.push(...teams[currentTeamIndex].players);
 
     teams[currentTeamIndex].players.length = 0;
     renderTeams();
