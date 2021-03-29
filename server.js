@@ -46,19 +46,35 @@ io.on('connection', client => {
     console.log(`Client ${client.id} connected!`);
 
     client.on('data.render', data => {
-        io.emit("data.render", data);
+        try {
+            io.emit("data.render", data);
+        }catch (e) {
+            console.error(e.message);
+        }
     });
     client.on('data.shuffle', data => {
-        io.emit("data.shuffle", data);
+        try {
+            io.emit("data.shuffle", data);
+        }catch (e) {
+            console.error(e.message);
+        }
     });
     client.on('force.stop', data => {
         gameState = 0;
-        io.emit("data.render", []);
-        TW_client.action(config.twitch.channel, config.game.stoppedMsg);
+        try {
+            io.emit("data.render", []);
+            TW_client.action(config.twitch.channel, config.game.stoppedMsg);
+        }catch (e) {
+            console.error(e.message);
+        }
     });
     client.on('play.game', data => {
         gameState = 1;
-        TW_client.action(config.twitch.channel, `${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
+        try {
+            TW_client.action(config.twitch.channel, `${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
+        }catch (e) {
+            console.error(e.message);
+        }
     });
     client.on('winner', data => {
         io.emit("data.render", data);
@@ -103,7 +119,7 @@ TW_client.on('connected', (adress, port) => {
 try {
     // client.connect();
 
-    server.listen(3333, () => console.log(`Server started at http://localhost`));
+    server.listen(3333, () => console.log(`Server started at http://localhost:3333`));
 } catch (err) {
     console.error(err);
 }
