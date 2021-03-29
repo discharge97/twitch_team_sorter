@@ -4,24 +4,22 @@ var team1;
 var team2;
 var team3;
 var team4;
-var teamPlayerControlIndexes = [0, 0, 0, 0];
 var scrollInterval = -1;
-
+scrollAnimation();
 io.on("data.render", data => {
-    if (data){
+    if (data) {
         teams = data;
         showTeamData();
     }
 });
 
 io.on("force.stop", data => {
-    resetPlayerControlsData();
     clearInterval(scrollInterval);
-    showTeamData();
+    window.location.reload(true);
 });
 
-io.on("data.shuffle", (event, data) => {
-    if (data){
+io.on("data.shuffle", data => {
+    if (data) {
         teams = data;
         shufflePlayersAnimation();
     }
@@ -30,7 +28,6 @@ io.on("data.shuffle", (event, data) => {
 function showTeamData() {
     updateTargetTeams();
     resetPlayerControlsData();
-
     for (let i = 0; i < teams.length; i++) {
         switch (i) {
             case 0:
@@ -55,14 +52,6 @@ function showTeamData() {
         }
     }
 
-    scrollInterval = setInterval(() => {
-        for (let i = 0; i < teams.length; i++) {
-            document.getElementById(teams[i].players[teamPlayerControlIndexes[i]++ % (teams[i].players.length - 1)]).scrollIntoView(true);
-            if (teamPlayerControlIndexes[i] + 10 >= teams[i].players.length - 1) {
-                teamPlayerControlIndexes[i] = 0;
-            }
-        }
-    }, 1000);
 }
 
 function getTeamPlayersHTML(players) {
@@ -138,6 +127,40 @@ function getRandomNumber(min, max) {
 }
 
 function resetPlayerControlsData() {
-    clearInterval(scrollInterval);
     teamPlayerControlIndexes = [0, 0, 0, 0];
+}
+
+function scrollAnimation() {
+
+    scrollInterval = setInterval(() => {
+        if (team1) {
+            if (team1.scrollTop + team1.offsetHeight >= team1.scrollHeight) {
+                team1.scrollTop = 0;
+            } else {
+                team1.scrollTop += 26;
+            }
+        }
+        if (team2) {
+            if (team2.scrollTop + team2.offsetHeight >= team2.scrollHeight) {
+                team2.scrollTop = 0;
+            } else {
+                team2.scrollTop += 26;
+            }
+        }
+        if (team3) {
+            if (team3.scrollTop + team3.offsetHeight >= team3.scrollHeight) {
+                team3.scrollTop = 0;
+            } else {
+                team3.scrollTop += 26;
+            }
+        }
+        if (team4) {
+            if (team4.scrollTop + team4.offsetHeight >= team4.scrollHeight) {
+                team4.scrollTop = 0;
+            } else {
+                team4.scrollTop += 26;
+            }
+        }
+
+    }, 1500);
 }

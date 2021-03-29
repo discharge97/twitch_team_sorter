@@ -29,9 +29,11 @@ var teams = [
 ];
 
 io.on("data.player", data => {
+    console.log(data);
     if (!isRunning()) return;
 
     teams[emptiestTeam()].players.push(data);
+    renderTeams();
 });
 
 function teamNumberChange() {

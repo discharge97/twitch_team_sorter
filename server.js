@@ -7,7 +7,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const path = require('path');
 let http = require("http");
-let gameState = 1;
+let gameState = 0;
 const config = JSON.parse(fs.readFileSync('config.json'));
 
 const options = {
@@ -48,14 +48,14 @@ io.on('connection', client => {
     client.on('data.render', data => {
         try {
             io.emit("data.render", data);
-        }catch (e) {
+        } catch (e) {
             console.error(e.message);
         }
     });
     client.on('data.shuffle', data => {
         try {
             io.emit("data.shuffle", data);
-        }catch (e) {
+        } catch (e) {
             console.error(e.message);
         }
     });
@@ -64,7 +64,7 @@ io.on('connection', client => {
         try {
             io.emit("force.stop", data);
             TW_client.action(config.twitch.channel, config.game.stoppedMsg);
-        }catch (e) {
+        } catch (e) {
             console.error(e.message);
         }
     });
@@ -72,7 +72,7 @@ io.on('connection', client => {
         gameState = 1;
         try {
             TW_client.action(config.twitch.channel, `${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
-        }catch (e) {
+        } catch (e) {
             console.error(e.message);
         }
     });
@@ -86,7 +86,7 @@ function handleCommand(channel, username, message) {
 
     switch (cmdParts[0].toLowerCase()) {
         case "play":
-            if (gameState === 0){
+            if (gameState === 0) {
                 TW_client.action(config.twitch.channel, `${config.game.notStartedMsg}`);
                 return;
             }
@@ -101,7 +101,7 @@ function handleCommand(channel, username, message) {
 }
 
 TW_client.on('connected', (adress, port) => {
-    if (config.twitch.ShowJoinMessage) {
+    if (config.twitch.showJoinMessage) {
         TW_client.action(config.twitch.channel, config.twitch.joinMessage);
     }
 }).on('message', (channel, tags, message, self) => {
@@ -117,7 +117,7 @@ TW_client.on('connected', (adress, port) => {
 });
 
 try {
-    // client.connect();
+    TW_client.connect();
 
     server.listen(3333, () => console.log(`Server started at http://localhost:3333`));
 } catch (err) {
