@@ -28,14 +28,6 @@ io.on("data.shuffle", data => {
 function showTeamData() {
     updateTargetTeams();
     resetPlayerControlsData();
-<<<<<<< HEAD
-=======
-    team1.innerHTML = "";
-    team2.innerHTML = "";
-    team3.innerHTML = "";
-    team4.innerHTML = "";
-
->>>>>>> 4cbdb3580f796091e2428be984534164802f29fb
     for (let i = 0; i < teams.length; i++) {
         switch (i) {
             case 0:

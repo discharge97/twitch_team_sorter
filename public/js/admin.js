@@ -207,6 +207,7 @@ function setGameState(state) {
 
 function setWinnerTeam(index) {
     const winner = teams[index];
+    io.emit("winner", teams[i]);
     forceStop();
     renderWinnerTeam(winner);
 }

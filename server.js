@@ -77,7 +77,8 @@ io.on('connection', client => {
         }
     });
     client.on('winner', data => {
-        io.emit("data.render", data);
+        TW_client.action(config.twitch.channel, `${config.game.winnerMsg} ${data.team_name}. LUL ${data.players.join(',')}`);
+        io.emit("force.stop", data);
     });
 });
 
