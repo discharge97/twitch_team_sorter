@@ -1,15 +1,15 @@
-const { ipcRenderer } = require('electron');
+var io = io();
 const RUNNING = 1;
 const STOPPED = 0;
-let gameState = STOPPED;
-let max_teams = 2;
+var gameState = STOPPED;
+var max_teams = 2;
 var teamsNumber = document.getElementById("teams-count");
 var startButton = document.getElementById("start-button");
 var stopButton = document.getElementById("stop-button");
 var shufflePlayersButton = document.getElementById("shuffle-players-button");
 var shuffleTeamsButton = document.getElementById("shuffle-teams-button");
 var randomWinnerButton = document.getElementById("random-winner-button");
-const teams = [
+var teams = [
     // {
     //     team_name: "Team1",
     //     players: []
@@ -29,16 +29,14 @@ const teams = [
 ];
 
 function sendPlayerData() {
-    ipcRenderer.send('data.render', teams);
+    io.emit('data.render', teams);
 }
 
-ipcRenderer.on("data.player", (event, data) => {
+io.on("data.player", data => {
+    console.log(data);
     if (!isRunning()) return;
 
-    console.log(data);
     teams[emptiestTeam()].players.push(data);
-
-
 });
 
 function teamNumberChange() {
@@ -89,7 +87,7 @@ function renderTeams() {
         tmp += `<ul id="team${i + 1}"><li class="header">
         <input id="txt-team-${i + 1}" type="text" value="${teams[i].team_name || "Team " + (i + 1)}">
         <button onclick="saveTeamName(${i}, 'txt-team-${i + 1}')"><span class="material-icons">save</span> </button>
-        </li><li>Move to <select id="move-all-${i}" onchange="moveAllPlayers('${teams[i].players}', ${i}, 'move-all-${i}')">${options}</select>
+        </li><li>Move to <select id="move-all-${i}" onchange="moveAllPlayers(${teams[i].players}, ${i}, 'move-all-${i}')">${options}</select>
         <button onClick="setWinnerTeam(${i})"><span class="material-icons">emoji_events</span></button> </li>`;
 
         for (let j = 0; j < teams[i].players.length; j++) {
@@ -100,7 +98,8 @@ function renderTeams() {
     }
 
     document.getElementById("teams").innerHTML = tmp;
-    sendPlayerData();
+    // sendPlayerData();
+    io.emit('data.render', teams);
 }
 
 function saveTeamName(teamIndex, nameID) {
@@ -128,7 +127,8 @@ function moveAllPlayers(playersToMove, currentTeamIndex, selectDestinationID) {
 
     if (destTeamIndex < 0 || +destTeamIndex === currentTeamIndex) return;
 
-    playersToMove.split(',').forEach(player => teams[destTeamIndex].players.push(player));
+    // playersToMove.split(',').forEach(player => teams[destTeamIndex].players.push(player));
+    teams[destTeamIndex].players.push(...playersToMove);
 
     teams[currentTeamIndex].players.length = 0;
     renderTeams();
@@ -148,6 +148,8 @@ function shufflePlayers() {
     while (all_players.length > 0) {
         teams[i++ % max_teams].players.push(...all_players.splice(getRandomNumber(0, all_players.length), 1));
     }
+
+    io.emit("data.shuffle", teams);
 
     renderTeams();
 }

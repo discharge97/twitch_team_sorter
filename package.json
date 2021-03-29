@@ -2,20 +2,26 @@
   "name": "twitch_team_sorter",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "node server.js"
   },
-  "author": "Alex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discharge97/twitch_team_sorter.git"
+  },
+  "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^9.0.1",
-    "node-sass": "^5.0.0",
-    "nodemon": "^2.0.7"
+  "bugs": {
+    "url": "https://github.com/discharge97/twitch_team_sorter/issues"
   },
+  "homepage": "https://github.com/discharge97/twitch_team_sorter#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "fs": "^0.0.1-security",
-    "socket.io": "^4.0.0"
+    "socket.io": "^2.3.0",
+    "tmi.js": "^1.7.5"
   }
 }

@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-wildth, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="js/admin.js" defer></script>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.4.0/socket.io.min.js" defer integrity="sha512-gfppNkmmwLyyV/BXmzS9uWWbjxe0owp9N3wx9NeGmIHkFOiRM0EMmQte753JyYZd9uzIbjuSqPOvME0SvADXhw==" crossorigin="anonymous"></script>
+    <script src="./js/admin.js" type="application/javascript" defer></script>
     <title>Admin panel</title>
 </head>
 
@@ -17,13 +18,13 @@
         <div id="toolbar">
             <button id="start-button" onclick="startGame()"><span class="material-icons">done_all</span><span
                     class="tool-text"> Start Game</span></button>
-            <button id="stop-button" onclick="forceStop()" disabled="true"><span
+            <button id="stop-button" onclick="forceStop()" disabled><span
                     class="material-icons">close</span><span class="tool-text"> Force stop</span></button>
-            <button id="shuffle-teams-button" onclick="shuffleTeams()" disabled="true"><span
+            <button id="shuffle-teams-button" onclick="shuffleTeams()" disabled><span
                     class="material-icons">group</span><span class="tool-text"> Shuffle Teams</span></button>
-            <button id="shuffle-players-button" onclick="shufflePlayers()" disabled="true"><span
+            <button id="shuffle-players-button" onclick="shufflePlayers()" disabled><span
                     class="material-icons">person</span><span class="tool-text"> Shuffle Players</span></button>
-            <button id="random-winner-button" onclick="setRandomWinner()" disabled="true"><span
+            <button id="random-winner-button" onclick="setRandomWinner()" disabled><span
                     class="material-icons">emoji_events</span><span class="tool-text"> Random Winner</span></button>
             <button id="" onclick="test()"><span class="material-icons">person</span><span class="tool-text">
                     TEST</span></button>
