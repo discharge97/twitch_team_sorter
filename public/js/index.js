@@ -17,6 +17,7 @@ io.on("data.render", data => {
 io.on("force.stop", data => {
     resetPlayerControlsData();
     clearInterval(scrollInterval);
+    showTeamData();
 });
 
 io.on("data.shuffle", (event, data) => {
