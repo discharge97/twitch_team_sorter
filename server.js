@@ -62,7 +62,7 @@ io.on('connection', client => {
     client.on('force.stop', data => {
         gameState = 0;
         try {
-            io.emit("data.render", []);
+            io.emit("force.stop", data);
             TW_client.action(config.twitch.channel, config.game.stoppedMsg);
         }catch (e) {
             console.error(e.message);
