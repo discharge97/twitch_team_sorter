@@ -8,10 +8,8 @@ var teamPlayerControlIndexes = [0, 0, 0, 0];
 var scrollInterval = -1;
 
 io.on("data.render", data => {
-    if (data){
         teams = data;
         showTeamData();
-    }
 });
 
 io.on("data.shuffle", (event, data) => {
