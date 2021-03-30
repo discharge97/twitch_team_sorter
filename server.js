@@ -62,6 +62,7 @@ io.on('connection', client => {
     });
     client.on('force.stop', data => {
         gameState = 0;
+        playerList = [];
         try {
             io.emit("force.stop", data);
             TW_client.action(config.twitch.channel, config.game.stoppedMsg);
@@ -93,6 +94,7 @@ function handleCommand(channel, username, message) {
                 return;
             }
             if (playerList.includes(username)){
+                playerList.push(username);
                 TW_client.action(config.twitch.channel, `${config.game.alreadyJoined}`);
                 return;
             }else{
