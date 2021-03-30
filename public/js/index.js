@@ -1,7 +1,5 @@
 var io = io();
-var teams = [
-    {team_name: "aaa", players: ["aaa", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb"]}
-];
+var teams = [];
 var team1;
 var team2;
 var team3;
@@ -151,32 +149,34 @@ function resetPlayerControlsData() {
 function scrollAnimation() {
 
     scrollInterval = setInterval(() => {
+
         if (team1) {
+
             if (team1.scrollTop + team1.offsetHeight >= team1.scrollHeight) {
                 team1.scrollTop = 0;
             } else {
-                team1.scrollTop += 26;
+                team1.scrollTop += 34;
             }
         }
         if (team2) {
             if (team2.scrollTop + team2.offsetHeight >= team2.scrollHeight) {
                 team2.scrollTop = 0;
             } else {
-                team2.scrollTop += 26;
+                team2.scrollTop += 34;
             }
         }
         if (team3) {
             if (team3.scrollTop + team3.offsetHeight >= team3.scrollHeight) {
                 team3.scrollTop = 0;
             } else {
-                team3.scrollTop += 26;
+                team3.scrollTop += 34;
             }
         }
         if (team4) {
             if (team4.scrollTop + team4.offsetHeight >= team4.scrollHeight) {
                 team4.scrollTop = 0;
             } else {
-                team4.scrollTop += 26;
+                team4.scrollTop += 34;
             }
         }
 

@@ -151,8 +151,6 @@ function shuffleTeams() {
         team.team_name = "";
     });
 
-    console.log(team_names);
-
     teams.forEach(team => {
         team.team_name = team_names.splice(getRandomNumber(0, team_names.length), 1)[0];
     });
