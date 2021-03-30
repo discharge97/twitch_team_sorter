@@ -7,9 +7,9 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const path = require('path');
 let http = require("http");
-let gameState = 0;
+var gameState = 0;
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'config.json')));
-let playerList = [];
+const playerList = [];
 
 const options = {
     options: {
@@ -62,7 +62,7 @@ io.on('connection', client => {
     });
     client.on('force.stop', data => {
         gameState = 0;
-        playerList = [];
+        playerList.length = 0;
         try {
             io.emit("force.stop", data);
             TW_client.action(config.twitch.channel, config.game.stoppedMsg);
@@ -93,11 +93,11 @@ function handleCommand(channel, username, message) {
                 TW_client.action(config.twitch.channel, `${config.game.notStartedMsg}`);
                 return;
             }
-            if (playerList.includes(username)){
-                playerList.push(username);
+            if (playerList.includes(username)) {
                 TW_client.action(config.twitch.channel, `${config.game.alreadyJoined}`);
                 return;
-            }else{
+            } else {
+                playerList.push(username);
                 io.emit("data.player", username);
                 TW_client.action(config.twitch.channel, `${username} ${config.game.joinMsg}`);
             }
