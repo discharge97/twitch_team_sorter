@@ -1,5 +1,5 @@
 .team_block {
-    background-color: lightblue;
+    background-color: whitesmoke;
     color: #1a1a1a;
     position: absolute;
     max-height: 345px;
@@ -9,8 +9,9 @@
     display: none;
     overflow: hidden;
     scroll-behavior: smooth;
-    padding-left: 0.5em;
+    padding-left: 0;
     margin: 0;
+    border-radius: 10px;
 }
 
 #team1 {
@@ -32,14 +33,32 @@
     bottom: 2em;
     right: 2em;
 }
+li.header{
+    position: fixed;
+    background-color: #1ffbfb;
+    color: #231f20;
+    font-weight: bold;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin: 0;
+    text-align: center;
+    width: 250px;
+    padding: 0.2em 0;
+}
+
+li:nth-child(2){
+    margin-top: 28px;
+}
 
 li {
     font-size: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     list-style: none;
-    padding: 0;
     margin: 0;
-    padding-top: 0.2em;
+    color: #231f20;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 0.2em 0 0 0.5em;
 }
 
 .show-me {

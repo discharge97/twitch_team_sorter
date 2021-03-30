@@ -118,7 +118,7 @@ TW_client.on('connected', (adress, port) => {
 });
 
 try {
-    TW_client.connect();
+    // TW_client.connect();
 
     server.listen(3333, () => console.log(`Server started at http://localhost:3333`));
 } catch (err) {

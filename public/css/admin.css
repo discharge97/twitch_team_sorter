@@ -1,85 +1,101 @@
 body {
-  background-color: whitesmoke;
+    background-color: whitesmoke;
 }
 
 #toolbar {
-  max-height: 100px;
-  height: 100%;
-  width: 100%;
-  text-align: center;
+    max-height: 100px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
 #toolbar button {
-  height: 56px;
-  display: inline-block;
-  vertical-align: middle;
+    height: 56px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 button .tool-text {
-  display: block;
+    display: block;
 }
+
 #toolbox {
-  margin-top: 2em;
-  margin-bottom: 2em;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
 }
+
 #toolbox select {
-  width: 50px;
-  font-weight: bold;
+    width: 50px;
+    font-weight: bold;
 }
+
 #teams {
-  text-align: center;
-  display: flex;
-  justify-content: space-around;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
 }
+
 #teams ul {
-  width: 230px;
-  display: inline-block;
-  text-align: left;
-  vertical-align: top;
-  list-style: none;
-  padding: 0.5em;
-  margin: 0;
-  border: 1px solid royalblue;
+    width: 230px;
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+    list-style: none;
+    padding: 0.5em;
+    margin: 0;
+    border: 1px solid royalblue;
 }
 
 #teams li:not(.header) {
-  font-size: 14px;
-  font-weight: bold;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    white-space: nowrap;
+    margin-bottom: 0.2em;
+}
+
+
+li button {
+    vertical-align: top;
+    height: 31px;
+}
+
+li button .material-icons{
+    font-size: 18px;
 }
 
 li.header {
-  text-transform: uppercase;
-  font-weight: bold;
-  padding-bottom: 0.5em;
-  white-space: nowrap;
-  text-align: center;
+    /*text-transform: uppercase;*/
+    /*font-weight: bold;*/
+    padding-bottom: 0.5em;
+    white-space: nowrap;
+    text-align: center;
 }
 
 li.header input {
-  max-width: 140px;
-  font-size: 18px;
+    max-width: 140px;
+    font-size: 18px;
 }
 
 li.header button {
-  vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 li.header .material-icons {
-  font-size: 18px;
+    font-size: 18px;
 }
 
-.hide-me{
-  display: none;
+.hide-me {
+    display: none;
 }
 
-#winner-box{
-  text-align: center;
+#winner-box {
+    text-align: center;
 }
 
-#winning-team{
-  width: 250px;
-  height: 400px;
+#winning-team {
+    width: 250px;
+    height: 400px;
 }

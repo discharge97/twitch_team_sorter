@@ -10,22 +10,6 @@ var shufflePlayersButton = document.getElementById("shuffle-players-button");
 var shuffleTeamsButton = document.getElementById("shuffle-teams-button");
 var randomWinnerButton = document.getElementById("random-winner-button");
 var teams = [
-    // {
-    //     team_name: "Team1",
-    //     players: []
-    // },
-    // {
-    //     team_name: "Team2",
-    //     players: []
-    // },
-    // {
-    //     team_name: "Team3",
-    //     players: []
-    // },
-    // {
-    //     team_name: "Team4",
-    //     players: []
-    // },
 ];
 
 io.on("data.player", data => {
@@ -95,7 +79,6 @@ function renderTeams() {
     }
 
     document.getElementById("teams").innerHTML = tmp;
-    // sendPlayerData();
     io.emit('data.render', teams);
 }
 

@@ -1,11 +1,14 @@
 var io = io();
-var teams = [];
+var teams = [
+];
 var team1;
 var team2;
 var team3;
 var team4;
 var scrollInterval = -1;
+
 scrollAnimation();
+
 io.on("data.render", data => {
     if (data) {
         teams = data;
@@ -31,22 +34,22 @@ function showTeamData() {
     for (let i = 0; i < teams.length; i++) {
         switch (i) {
             case 0:
-                team1.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team1.innerHTML = getTeamPlayersHTML(teams[i]);
                 team1.classList.add("show-me");
                 break;
 
             case 1:
-                team2.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team2.innerHTML = getTeamPlayersHTML(teams[i]);
                 team2.classList.add("show-me");
                 break;
 
             case 2:
-                team3.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team3.innerHTML = getTeamPlayersHTML(teams[i]);
                 team3.classList.add("show-me");
                 break;
 
             case 3:
-                team4.innerHTML = getTeamPlayersHTML(teams[i].players);
+                team4.innerHTML = getTeamPlayersHTML(teams[i]);
                 team4.classList.add("show-me");
                 break;
         }
@@ -54,8 +57,8 @@ function showTeamData() {
 
 }
 
-function getTeamPlayersHTML(players) {
-    let tmp = "";
+function getTeamPlayersHTML({team_name, players}) {
+    let tmp = `<li class="header">${team_name}</li>`;
     players.forEach(player => {
         tmp += `<li id="${player}">${player}</li>`;
     });
@@ -116,7 +119,7 @@ function getRandomList(num) {
 
 function randomString() {
     let string = "";
-    for (i = 0; i < getRandomNumber(9, 15); i++) {
+    for (let i = 0; i < getRandomNumber(9, 15); i++) {
         string += String.fromCharCode(getRandomNumber(35, 125));
     }
     return string;
