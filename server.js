@@ -10,6 +10,7 @@ let http = require("http");
 var gameState = 0;
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'config.json')));
 const playerList = [];
+var gameJoins = false;
 
 const options = {
     options: {
@@ -65,21 +66,25 @@ io.on('connection', client => {
         playerList.length = 0;
         try {
             io.emit("force.stop", data);
-            TW_client.action(config.twitch.channel, config.game.stoppedMsg);
+            sendTwitchMessage(config.game.stoppedMsg);
         } catch (e) {
             console.error(e.message);
         }
     });
+
     client.on('play.game', data => {
         gameState = 1;
         try {
-            TW_client.action(config.twitch.channel, `${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
+            sendTwitchMessage(`${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
         } catch (e) {
             console.error(e.message);
         }
     });
+    client.on('game.joins', data => {
+        gameJoins = data;
+    });
     client.on('winner', data => {
-        TW_client.action(config.twitch.channel, `${config.game.winnerMsg} ${data.team_name}. LUL ${data.players.join(',')}`);
+        sendTwitchMessage(`${config.game.winnerMsg} ${data.team_name}. LUL ${data.players.join(',')}`);
         io.emit("force.stop", data);
     });
 });
@@ -88,18 +93,19 @@ function handleCommand(channel, username, message) {
     const cmdParts = message.match(/([^\s]+)/g);
 
     switch (cmdParts[0].toLowerCase()) {
-        case "play":
+        case config.game.command:
             if (gameState === 0) {
-                TW_client.action(config.twitch.channel, `${config.game.notStartedMsg}`);
+                sendTwitchMessage(`${config.game.notStartedMsg}`);
                 return;
             }
             if (playerList.includes(username)) {
-                TW_client.action(config.twitch.channel, `${config.game.alreadyJoined}`);
+                sendTwitchMessage(`${config.game.alreadyJoined}`);
                 return;
             } else {
+                const team = cmdParts[1] || -1;
                 playerList.push(username);
-                io.emit("data.player", username);
-                TW_client.action(config.twitch.channel, `${username} ${config.game.joinMsg}`);
+                io.emit("data.player", {username, team});
+                sendTwitchMessage(`${username} ${config.game.joinMsg}`);
             }
             break;
 
@@ -111,19 +117,24 @@ function handleCommand(channel, username, message) {
 
 TW_client.on('connected', (adress, port) => {
     if (config.twitch.showJoinMessage) {
-        TW_client.action(config.twitch.channel, config.twitch.joinMessage);
+        sendTwitchMessage(config.twitch.joinMessage);
     }
 }).on('message', (channel, tags, message, self) => {
     try {
         if (self) return;
 
-        if (message.startsWith(config.twitch.commandPrefix)) {
+        if (gameJoins && message.startsWith(config.twitch.commandPrefix)) {
             handleCommand(channel, tags.username, message.replace(config.twitch.commandPrefix, ""));
         }
     } catch (err) {
         console.error(err);
     }
 });
+
+function sendTwitchMessage(text) {
+    if (config.twitch.broadcastMessages)
+    TW_client.action(config.twitch.channel, text);
+}
 
 try {
     TW_client.connect();

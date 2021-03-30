@@ -5,7 +5,8 @@
     "channel": "xxxxxxxxxxxx",
     "joinMessage": "Hi! How is it going? VoHiYo",
     "showJoinMessage": true,
-    "commandPrefix": "!"
+    "commandPrefix": "!",
+    "broadcastMessages": true
   },
   "game": {
     "command": "play",

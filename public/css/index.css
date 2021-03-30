@@ -1,6 +1,6 @@
 .team_block {
-    background-color: whitesmoke;
-    color: #1a1a1a;
+    /*background-color: whitesmoke;*/
+    color: whitesmoke;
     position: absolute;
     max-height: 345px;
     max-width: 250px;
@@ -35,7 +35,7 @@
 }
 li.header{
     position: fixed;
-    background-color: #1ffbfb;
+    text-shadow: 0 0 10px #1ffbfb;
     color: #231f20;
     font-weight: bold;
     border-top-right-radius: 0;

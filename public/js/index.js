@@ -120,7 +120,7 @@ function getRandomList(num) {
 function randomString() {
     let string = "";
     for (let i = 0; i < getRandomNumber(9, 15); i++) {
-        string += String.fromCharCode(getRandomNumber(35, 125));
+        string += String.fromCharCode(getRandomNumber(97, 123));
     }
     return string;
 }

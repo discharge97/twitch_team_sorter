@@ -5,7 +5,8 @@ var gameState = STOPPED;
 var max_teams = 2;
 var teamsNumber = document.getElementById("teams-count");
 var startButton = document.getElementById("start-button");
-var stopButton = document.getElementById("stop-button");
+var stopButton = document.getElementById("reset-button");
+var stopJoinButton = document.getElementById("reset-button");
 var shufflePlayersButton = document.getElementById("shuffle-players-button");
 var shuffleTeamsButton = document.getElementById("shuffle-teams-button");
 var randomWinnerButton = document.getElementById("random-winner-button");
@@ -13,10 +14,14 @@ var teams = [
 ];
 
 io.on("data.player", data => {
-    console.log(data);
     if (!isRunning()) return;
 
-    teams[emptiestTeam()].players.push(data);
+    if (data.team < 0 || data.team > teams.length){
+        teams[emptiestTeam()].players.push(data.username);
+    }else {
+        teams[data.team].players.push(data.username);
+    }
+
     renderTeams();
 });
 
@@ -26,6 +31,7 @@ function teamNumberChange() {
 function startGame() {
     if (isRunning()) return;
     setGameState(RUNNING);
+    io.emit("game.joins", true);
 
     for (let i = 1; i <= max_teams; i++) {
         teams.push({ team_name: `Team ${i}`, players: [] });
@@ -39,6 +45,10 @@ function forceStop() {
     document.getElementById('teams').innerHTML = "";
     teams.length = 0;
 
+}
+
+function stopEnters() {
+    io.emit("game.joins", false);
 }
 
 function emptiestTeam() {
@@ -167,6 +177,7 @@ function setGameState(state) {
         case RUNNING:
             startButton.disabled = true;
             stopButton.disabled = false;
+            stopJoinButton.disabled = false;
             shufflePlayersButton.disabled = false;
             shuffleTeamsButton.disabled = false;
             teamsNumber.disabled = true;
@@ -178,6 +189,7 @@ function setGameState(state) {
         case STOPPED:
             startButton.disabled = false;
             stopButton.disabled = true;
+            stopJoinButton.disabled = true;
             shufflePlayersButton.disabled = true;
             shuffleTeamsButton.disabled = true;
             teamsNumber.disabled = false;
