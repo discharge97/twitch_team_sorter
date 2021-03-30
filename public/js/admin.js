@@ -16,9 +16,9 @@ var teams = [
 io.on("data.player", data => {
     if (!isRunning()) return;
 
-    if (data.team < 0 || data.team > teams.length){
+    if (data.team < 0 || data.team > teams.length) {
         teams[emptiestTeam()].players.push(data.username);
-    }else {
+    } else {
         teams[data.team].players.push(data.username);
     }
 
@@ -202,7 +202,7 @@ function setGameState(state) {
 
 function setWinnerTeam(index) {
     const winner = teams[index];
-    io.emit("winner", teams[i]);
+    io.emit("winner", teams[index]);
     forceStop();
     renderWinnerTeam(winner);
 }
