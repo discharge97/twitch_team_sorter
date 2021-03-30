@@ -75,7 +75,7 @@ io.on('connection', client => {
     client.on('play.game', data => {
         gameState = 1;
         try {
-            sendTwitchMessage(`${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
+            // sendTwitchMessage(`${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
         } catch (e) {
             console.error(e.message);
         }

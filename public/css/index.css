@@ -1,12 +1,11 @@
 .team_block {
-    /*background-color: whitesmoke;*/
     color: whitesmoke;
     position: absolute;
     max-height: 345px;
     max-width: 250px;
     width: 100%;
     height: 100%;
-    display: none;
+    /*display: none;*/
     overflow: hidden;
     scroll-behavior: smooth;
     padding-left: 0;
@@ -14,56 +13,48 @@
     border-radius: 10px;
 }
 
-#team1, #span1 {
+.show-me {
+    display: initial !important;
+}
+
+.team_block ul {
+    display: none;
+}
+
+.top {
     top: 2em;
+}
+
+.left {
     left: 2em;
 }
 
-#team2, #span2 {
-    top: 2em;
+.bottom {
+    bottom: 2em;
+}
+
+.right {
     right: 2em;
 }
 
-#team3, #span3 {
-    bottom: 2em;
-    left: 2em;
-}
-
-#team4, #span4 {
-    bottom: 2em;
-    right: 2em;
-}
-span.header{
-    position: absolute;
-    position: fixed;
-    text-shadow: 0 0 10px #1ffbfb;
+span.header {
+    text-shadow: 0 0 10px #1ffbfb, 0 0 10px #1ffbfb;
     color: #231f20;
     font-weight: bold;
-    font-size: 26px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+    font-size: 30px;
     margin: 0;
     text-align: center;
-    width: 250px;
-    padding: 0.2em 0;
-}
-
-li:nth-child(2){
-    margin-top: 28px;
+    display: block;
 }
 
 li {
-    font-size: 22px;
+    font-size: 26px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     list-style: none;
     margin: 0;
-    color: #231f20;
     font-weight: bold;
     border-radius: 10px;
     padding: 0.2em 0 0 0.5em;
-}
-
-.show-me {
-    display: initial;
+    color: whitesmoke;
 }
 

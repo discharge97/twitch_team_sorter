@@ -1,5 +1,6 @@
 var io = io();
 var teams = [
+    {team_name: "aaa", players: ["aaa", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb", "bbb"]}
 ];
 var team1;
 var team2;
@@ -13,6 +14,7 @@ var span4;
 var scrollInterval = -1;
 
 scrollAnimation();
+showTeamData();
 
 io.on("data.render", data => {
     if (data) {
