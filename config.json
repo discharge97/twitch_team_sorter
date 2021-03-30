@@ -1,6 +1,7 @@
 {
   "twitch": {
     "oAuth": "oauth:xxxxxxxxxxxxx",
+    "botName": "xxxxxxxxxxx",
     "channel": "xxxxxxxxxxx",
     "joinMessage": "Hi! How is it going? VoHiYo",
     "showJoinMessage": true,
@@ -12,6 +13,7 @@
     "joinMsg": "joined the game!",
     "notStartedMsg": "game isn't started yet!",
     "stoppedMsg": "Game has stopped!",
-    "startedMsg": "Game has started! To join Type:"
+    "startedMsg": "Game has started! To join Type:",
+    "alreadyJoined": "You have already joined the game!"
   }
 }

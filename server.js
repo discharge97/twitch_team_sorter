@@ -10,6 +10,8 @@ let http = require("http");
 let gameState = 0;
 const config = JSON.parse(fs.readFileSync('config.json'));
 
+let playerList = [];
+
 const options = {
     options: {
         debug: false
@@ -91,8 +93,13 @@ function handleCommand(channel, username, message) {
                 TW_client.action(config.twitch.channel, `${config.game.notStartedMsg}`);
                 return;
             }
-            io.emit("data.player", username);
-            TW_client.action(config.twitch.channel, `${username} ${config.game.joinMsg}`);
+            if (playerList.includes(username)){
+                TW_client.action(config.twitch.channel, `${config.game.alreadyJoined}`);
+                return;
+            }else{
+                io.emit("data.player", username);
+                TW_client.action(config.twitch.channel, `${username} ${config.game.joinMsg}`);
+            }
             break;
 
         default:
@@ -118,7 +125,7 @@ TW_client.on('connected', (adress, port) => {
 });
 
 try {
-    // TW_client.connect();
+    TW_client.connect();
 
     server.listen(3333, () => console.log(`Server started at http://localhost:3333`));
 } catch (err) {
