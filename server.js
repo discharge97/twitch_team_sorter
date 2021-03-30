@@ -8,8 +8,7 @@ const io = require('socket.io')(server);
 const path = require('path');
 let http = require("http");
 let gameState = 0;
-const config = JSON.parse(fs.readFileSync('config.json'));
-
+const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'config.json')));
 let playerList = [];
 
 const options = {
