@@ -5,6 +5,11 @@ var team1;
 var team2;
 var team3;
 var team4;
+var span1;
+var span2;
+var span3;
+var span4;
+
 var scrollInterval = -1;
 
 scrollAnimation();
@@ -34,22 +39,26 @@ function showTeamData() {
     for (let i = 0; i < teams.length; i++) {
         switch (i) {
             case 0:
-                team1.innerHTML = getTeamPlayersHTML(teams[i]);
+                span1.innerHTML = teams[i].team_name;
+                team1.innerHTML = getTeamPlayersHTML(teams[i].players);
                 team1.classList.add("show-me");
                 break;
 
             case 1:
-                team2.innerHTML = getTeamPlayersHTML(teams[i]);
+                span2.innerHTML = teams[i].team_name;
+                team2.innerHTML = getTeamPlayersHTML(teams[i].players);
                 team2.classList.add("show-me");
                 break;
 
             case 2:
-                team3.innerHTML = getTeamPlayersHTML(teams[i]);
+                span3.innerHTML = teams[i].team_name;
+                team3.innerHTML = getTeamPlayersHTML(teams[i].players);
                 team3.classList.add("show-me");
                 break;
 
             case 3:
-                team4.innerHTML = getTeamPlayersHTML(teams[i]);
+                span4.innerHTML = teams[i].team_name;
+                team4.innerHTML = getTeamPlayersHTML(teams[i].players);
                 team4.classList.add("show-me");
                 break;
         }
@@ -57,8 +66,8 @@ function showTeamData() {
 
 }
 
-function getTeamPlayersHTML({team_name, players}) {
-    let tmp = `<li class="header">${team_name}</li>`;
+function getTeamPlayersHTML(players) {
+    let tmp = "";
     players.forEach(player => {
         tmp += `<li id="${player}">${player}</li>`;
     });
@@ -71,6 +80,10 @@ function updateTargetTeams() {
         team2 = document.getElementById('team2');
         team3 = document.getElementById('team3');
         team4 = document.getElementById('team4');
+        span1 = document.getElementById('span1');
+        span2 = document.getElementById('span2');
+        span3 = document.getElementById('span3');
+        span4 = document.getElementById('span4');
     }
 }
 

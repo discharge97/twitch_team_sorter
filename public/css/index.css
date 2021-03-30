@@ -14,30 +14,32 @@
     border-radius: 10px;
 }
 
-#team1 {
+#team1, #span1 {
     top: 2em;
     left: 2em;
 }
 
-#team2 {
+#team2, #span2 {
     top: 2em;
     right: 2em;
 }
 
-#team3 {
+#team3, #span3 {
     bottom: 2em;
     left: 2em;
 }
 
-#team4 {
+#team4, #span4 {
     bottom: 2em;
     right: 2em;
 }
-li.header{
+span.header{
+    position: absolute;
     position: fixed;
     text-shadow: 0 0 10px #1ffbfb;
     color: #231f20;
     font-weight: bold;
+    font-size: 26px;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     margin: 0;
@@ -51,7 +53,7 @@ li:nth-child(2){
 }
 
 li {
-    font-size: 20px;
+    font-size: 22px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     list-style: none;
     margin: 0;
