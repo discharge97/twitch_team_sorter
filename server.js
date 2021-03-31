@@ -102,7 +102,10 @@ function handleCommand(channel, username, message) {
                 sendTwitchMessage(`${config.game.alreadyJoined}`);
                 return;
             } else {
-                const team = cmdParts[1] || -1;
+                let team = "";
+                if (cmdParts.length > 1){
+                    team = cmdParts.splice(0,1).join("");
+                }
                 playerList.push(username);
                 io.emit("data.player", {username, team});
                 sendTwitchMessage(`${username} ${config.game.joinMsg}`);

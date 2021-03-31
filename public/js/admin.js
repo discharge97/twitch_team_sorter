@@ -10,16 +10,24 @@ var stopJoinButton = document.getElementById("stop-join-button");
 var shufflePlayersButton = document.getElementById("shuffle-players-button");
 var shuffleTeamsButton = document.getElementById("shuffle-teams-button");
 var randomWinnerButton = document.getElementById("random-winner-button");
-var teams = [
-];
+var teams = [];
 
 io.on("data.player", data => {
     if (!isRunning()) return;
+    let index = -1;
 
-    if (data.team < 0 || data.team > teams.length) {
-        teams[emptiestTeam()].players.push(data.username);
+    if (data.team !== "") {
+        for (let i = 0; i < teams; i++) {
+            if (teams[i].team_name.toLowerCase() === data.team.toLocaleLowerCase()) {
+                index = i;
+            }
+        }
+    }
+
+    if (index >= 0 && index < teams.length) {
+        teams[index].players.push(data.username);
     } else {
-        teams[data.team].players.push(data.username);
+        teams[emptiestTeam()].players.push(data.username);
     }
 
     renderTeams();
@@ -28,16 +36,18 @@ io.on("data.player", data => {
 function teamNumberChange() {
     max_teams = teamsNumber.value;
 }
+
 function startGame() {
     if (isRunning()) return;
     setGameState(RUNNING);
     io.emit("game.joins", true);
 
     for (let i = 1; i <= max_teams; i++) {
-        teams.push({ team_name: `Team ${i}`, players: [] });
+        teams.push({team_name: `Team ${i}`, players: []});
     }
     renderTeams();
 }
+
 function forceStop() {
     setGameState(STOPPED);
     max_teams = 2;
@@ -59,6 +69,7 @@ function emptiestTeam() {
     }
     return min;
 }
+
 function test() {
     if (!isRunning()) return;
     let index = emptiestTeam()
@@ -71,7 +82,9 @@ function renderTeams() {
     let tmp = "";
     let options = "<option value='-1'>TEAM</option>";
     let i = 0;
-    teams.forEach(team => { options += `<option value="${i++}">${team.team_name}</option>` });
+    teams.forEach(team => {
+        options += `<option value="${i++}">${team.team_name}</option>`
+    });
 
     for (let i = 0; i < max_teams; i++) {
 
