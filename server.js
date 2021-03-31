@@ -103,11 +103,12 @@ function handleCommand(channel, username, message) {
                 return;
             } else {
                 let team = "";
-                if (cmdParts.length > 1){
-                    team = cmdParts.splice(0,1).join("");
+                if (cmdParts.length > 1) {
+                    cmdParts.splice(0, 1);
+                    team = cmdParts.join(" ");
                 }
                 playerList.push(username);
-                io.emit("data.player", {username, team});
+                io.emit("data.player", { username, team });
                 sendTwitchMessage(`${username} ${config.game.joinMsg}`);
             }
             break;

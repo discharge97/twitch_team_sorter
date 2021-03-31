@@ -15,10 +15,10 @@ var teams = [];
 io.on("data.player", data => {
     if (!isRunning()) return;
     let index = -1;
-
+    console.log(data);
     if (data.team !== "") {
-        for (let i = 0; i < teams; i++) {
-            if (teams[i].team_name.toLowerCase() === data.team.toLocaleLowerCase()) {
+        for (let i = 0; i < teams.length; i++) {
+            if (teams[i].team_name.toLowerCase().replace(/\s+/g, "") === data.team.toLocaleLowerCase().replace(/\s+/g, "")) {
                 index = i;
             }
         }
@@ -43,7 +43,7 @@ function startGame() {
     io.emit("game.joins", true);
 
     for (let i = 1; i <= max_teams; i++) {
-        teams.push({team_name: `Team ${i}`, players: []});
+        teams.push({ team_name: `Team ${i}`, players: [] });
     }
     renderTeams();
 }

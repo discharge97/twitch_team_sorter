@@ -1,8 +1,8 @@
 {
   "twitch": {
-    "oAuth": "oauth:xxxxxxxxxxxxxxxxx",
-    "botName": "xxxxxxxxxxxxxxxxx",
-    "channel": "xxxxxxxxxxxxxxxxx",
+    "oAuth": "oauth:xxxxxxxxxxx",
+    "botName": "xxxxxxxxxxx",
+    "channel": "xxxxxxxxxxx",
     "joinMessage": "Hi! How is it going? VoHiYo",
     "showJoinMessage": true,
     "commandPrefix": "!",
