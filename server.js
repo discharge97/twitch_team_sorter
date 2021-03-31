@@ -6,7 +6,6 @@ const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const path = require('path');
-let http = require("http");
 var gameState = 0;
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'config.json')));
 const playerList = [];
@@ -74,8 +73,9 @@ io.on('connection', client => {
 
     client.on('play.game', data => {
         gameState = 1;
+        gameJoins = true;
         try {
-            // sendTwitchMessage(`${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
+            sendTwitchMessage(`${config.game.startedMsg} ${config.twitch.commandPrefix}${config.game.command}`);
         } catch (e) {
             console.error(e.message);
         }
@@ -133,7 +133,7 @@ TW_client.on('connected', (adress, port) => {
 
 function sendTwitchMessage(text) {
     if (config.twitch.broadcastMessages)
-    TW_client.action(config.twitch.channel, text);
+        TW_client.action(config.twitch.channel, text);
 }
 
 try {

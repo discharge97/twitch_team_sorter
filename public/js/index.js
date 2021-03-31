@@ -1,5 +1,6 @@
 var io = io();
-var teams = [];
+var teams = [
+];
 var team1;
 var team2;
 var team3;
@@ -12,7 +13,6 @@ var span4;
 var scrollInterval = -1;
 
 scrollAnimation();
-showTeamData();
 
 io.on("data.render", data => {
     if (data) {
@@ -35,7 +35,7 @@ io.on("data.shuffle", data => {
 
 function showTeamData() {
     updateTargetTeams();
-    resetPlayerControlsData();
+
     for (let i = 0; i < teams.length; i++) {
         switch (i) {
             case 0:
@@ -140,10 +140,6 @@ function randomString() {
 
 function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function resetPlayerControlsData() {
-    teamPlayerControlIndexes = [0, 0, 0, 0];
 }
 
 function scrollAnimation() {
